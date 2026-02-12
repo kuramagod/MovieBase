@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MovieBase;
+namespace MovieBase.database;
 
 public partial class User
 {
@@ -12,6 +12,8 @@ public partial class User
     public string? Password { get; set; }
 
     public int? Roleid { get; set; }
+
+    public string? Email { get; set; }
 
     public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
 

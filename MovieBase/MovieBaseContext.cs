@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using MovieBase.database;
 
 namespace MovieBase;
 
@@ -14,7 +15,6 @@ public partial class MovieBaseContext : DbContext
             _context = new MovieBaseContext();
         return _context;
     }
-
     public MovieBaseContext()
     {
     }
@@ -167,6 +167,9 @@ public partial class MovieBaseContext : DbContext
             entity.ToTable("users");
 
             entity.Property(e => e.Userid).HasColumnName("userid");
+            entity.Property(e => e.Email)
+                .HasColumnType("character varying")
+                .HasColumnName("email");
             entity.Property(e => e.Password)
                 .HasColumnType("character varying")
                 .HasColumnName("password");

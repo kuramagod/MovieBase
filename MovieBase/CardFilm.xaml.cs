@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,21 +14,15 @@ using System.Windows.Shapes;
 namespace MovieBase
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для CardFilm.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CardFilm : UserControl
     {
-        public MainWindow()
+        public CardFilm()
         {
             InitializeComponent();
-            LoadMovies();
         }
 
-        private void LoadMovies()
-        {
-            var movies = MovieBaseContext.GetContext().Movies.Include(m => m.Genre).ToList();
 
-            MoviesList.ItemsSource = movies;
-        }
     }
 }
