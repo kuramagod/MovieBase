@@ -20,14 +20,19 @@ namespace MovieBase
         public MainWindow()
         {
             InitializeComponent();
-            LoadMovies();
+            MainFrame.Navigate(new MoviesListPage());
         }
 
-        private void LoadMovies()
-        {
-            var movies = MovieBaseContext.GetContext().Movies.Include(m => m.Genre).ToList();
 
-            MoviesList.ItemsSource = movies;
+        private void ClearSearch_Click(object sender, RoutedEventArgs e)
+        {
+            SearchTextBox.Text = string.Empty;
+            SearchTextBox.Focus();
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

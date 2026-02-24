@@ -45,8 +45,7 @@
                      Foreground="White"
                      BorderBrush="#BDBDBD"
                      x:Name="loginTxt"
-                     Padding="10"
-                     Text="Vanya"/>
+                     Padding="10"/>
 
                 <!-- Почта -->
                 <TextBlock Text="Почта"
@@ -60,8 +59,7 @@
                      Foreground="White"
                      BorderBrush="#BDBDBD"
                      x:Name="emailTxt"
-                     Padding="10"
-                     Text="example@example.com"/>
+                     Padding="10"/>
 
                 <!-- Пароль -->
                 <TextBlock Text="Пароль"
