@@ -28,6 +28,7 @@ namespace MovieBase
             var user = context.Users.FirstOrDefault(u => u.Username == loginTxt.Text && u.Password == passwordTxt.Password);
             if (user != null)
             {
+                AppSession.CurrentUser = user;
                 MainWindow mainWindow = new MainWindow();
                 mainWindow.Show();
                 this.Close();

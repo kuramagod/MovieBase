@@ -20,7 +20,20 @@ namespace MovieBase
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigated += MainFrame_Navigated;
             MainFrame.Navigate(new MoviesListPage());
+        }
+
+        private void MainFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            if (e.Content is MoviesListPage)
+            {
+                SearchContainer.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SearchContainer.Visibility = Visibility.Collapsed;
+            }
         }
 
 
@@ -33,6 +46,25 @@ namespace MovieBase
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void Logo_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            SearchTextBox.Text = string.Empty;
+
+            MainFrame.Navigate(new MoviesListPage());
+        }
+
+        private void FavoritesButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (AppSession.CurrentUser == null)
+            {
+                MessageBox.Show("Сначала необходимо авторизоваться!");
+                return;
+            }
+
+            MainFrame.Navigate(new MovieFavoritesListPage());
         }
     }
 }
