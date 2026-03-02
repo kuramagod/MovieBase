@@ -17,6 +17,8 @@ public partial class Review
 
     public DateOnly? Date { get; set; }
 
+    public int? Rating { get; set; }
+
     public virtual Movie? Movie { get; set; }
 
     public virtual User? User { get; set; }

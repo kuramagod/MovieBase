@@ -45,7 +45,7 @@ namespace MovieBase
                 Username = loginTxt.Text,
                 Password = passwordTxt.Password,
                 Email = emailTxt.Text,
-                Roleid = 1 
+                Roleid = 1
             };
             context.Users.Add(newUser);
             context.SaveChanges();

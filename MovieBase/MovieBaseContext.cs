@@ -15,6 +15,7 @@ public partial class MovieBaseContext : DbContext
             _context = new MovieBaseContext();
         return _context;
     }
+
     public MovieBaseContext()
     {
     }
@@ -131,6 +132,7 @@ public partial class MovieBaseContext : DbContext
             entity.Property(e => e.Reviewid).HasColumnName("reviewid");
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.Movieid).HasColumnName("movieid");
+            entity.Property(e => e.Rating).HasColumnName("rating");
             entity.Property(e => e.Text)
                 .HasColumnType("character varying")
                 .HasColumnName("text");

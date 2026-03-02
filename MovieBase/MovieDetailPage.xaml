@@ -9,93 +9,312 @@
       Background="#121212"
       Foreground="White">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-        <StackPanel Margin="40">
+    <Grid>
+        <!-- Затемнение и блокировка скролла при открытой форме -->
+        <Grid x:Name="ReviewOverlay" 
+              Visibility="Collapsed" 
+              Background="#CC000000"
+              Panel.ZIndex="10"
+              IsHitTestVisible="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-            <Grid Margin="0,0,0,40">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <!-- Пустые строки для вертикального центрирования -->
+            <Border x:Name="ReviewFormBorder"  
+                    Grid.Row="1" 
+                    Background="#1E1E1E" 
+                    HorizontalAlignment="Center" 
+                    Width="550" 
+                    Padding="35" 
+                    CornerRadius="24"
+                    BorderBrush="#333333"
+                    BorderThickness="1">
+                <StackPanel>
+                    <TextBlock x:Name="ReviewFormTitle" 
+                               Text="{Binding ReviewFormTitle}" 
+                               FontSize="28" FontWeight="SemiBold" 
+                               Margin="0,0,0,25"
+                               Foreground="White"/>
 
-                <StackPanel Grid.Column="0" Margin="0,0,40,0" Width="300">
-                    <Border Background="#1E1E1E" Height="450" CornerRadius="20">
-                        <Image Source="{Binding Cover}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
+                    <!-- Оценка звездами -->
+                    <TextBlock Text="Ваша оценка" 
+                               Foreground="#AAAAAA" 
+                               FontSize="16" 
+                               Margin="0,0,0,8"/>
 
-                    <Button Margin="0,25,0,0"
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <StackPanel x:Name="StarsStack" Orientation="Horizontal">
+                            <Button Content="★" FontSize="28" Click="Star_Click" Tag="1" Style="{StaticResource StarButtonStyle}" Foreground="#AAAAAA"/>
+                            <Button Content="★" FontSize="28" Click="Star_Click" Tag="2" Style="{StaticResource StarButtonStyle}" Foreground="#AAAAAA"/>
+                            <Button Content="★" FontSize="28" Click="Star_Click" Tag="3" Style="{StaticResource StarButtonStyle}" Foreground="#AAAAAA"/>
+                            <Button Content="★" FontSize="28" Click="Star_Click" Tag="4" Style="{StaticResource StarButtonStyle}" Foreground="#AAAAAA"/>
+                            <Button Content="★" FontSize="28" Click="Star_Click" Tag="5" Style="{StaticResource StarButtonStyle}" Foreground="#AAAAAA"/>
+                            <Button Content="★" FontSize="28" Click="Star_Click" Tag="6" Style="{StaticResource StarButtonStyle}" Foreground="#AAAAAA"/>
+                            <Button Content="★" FontSize="28" Click="Star_Click" Tag="7" Style="{StaticResource StarButtonStyle}" Foreground="#AAAAAA"/>
+                            <Button Content="★" FontSize="28" Click="Star_Click" Tag="8" Style="{StaticResource StarButtonStyle}" Foreground="#AAAAAA"/>
+                            <Button Content="★" FontSize="28" Click="Star_Click" Tag="9" Style="{StaticResource StarButtonStyle}" Foreground="#AAAAAA"/>
+                            <Button Content="★" FontSize="28" Click="Star_Click" Tag="10" Style="{StaticResource StarButtonStyle}" Foreground="#AAAAAA"/>
+                        </StackPanel>
+
+                        <!-- Цифровое отображение оценки -->
+                        <Border Background="#333333" 
+                                CornerRadius="12" 
+                                Padding="10,5" 
+                                Margin="20,0,0,0"
+                                VerticalAlignment="Center">
+                            <TextBlock x:Name="RatingDisplay" 
+                                       Text="0/10" 
+                                       FontSize="18" 
+                                       FontWeight="Bold"
+                                       Foreground="#FFC107"/>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Заголовок рецензии -->
+                    <TextBlock Text="Заголовок" 
+                               Foreground="#AAAAAA" 
+                               FontSize="14" 
+                               Margin="0,5,0,5"/>
+                    <TextBox x:Name="ReviewTitleTxt"
+                             Style="{StaticResource RoundedInputStyle}"
+                             Height="45"
+                             Padding="12,10"
+                             Background="#2A2A2A"
+                             BorderBrush="#444444"
+                             BorderThickness="1"
+                             Foreground="White"
+                             FontSize="16"
+                             CaretBrush="#FFC107">
+                    </TextBox>
+
+                    <!-- Текст рецензии -->
+                    <TextBlock Text="Текст рецензии" 
+                               Foreground="#AAAAAA" 
+                               FontSize="14" 
+                               Margin="0,15,0,5"/>
+                    <TextBox x:Name="ReviewTextTxt" 
+                             Height="140" 
+                             Style="{StaticResource RoundedTextAreaStyle}"
+                             TextWrapping="Wrap" 
+                             AcceptsReturn="True" 
+                             Padding="12,10"
+                             Background="#2A2A2A"
+                             BorderBrush="#444444"
+                             BorderThickness="1"
+                             Foreground="White"
+                             FontSize="16"
+                             CaretBrush="#FFC107"
+                             VerticalContentAlignment="Top">
+                    </TextBox>
+
+                    <!-- Кнопки действий -->
+                    <Grid Margin="0,25,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" 
+                                Content="Отмена" 
+                                Click="CloseReviewForm_Click" 
+                                Height="45"
+                                FontWeight="Medium"
+                                Background="Transparent" 
+                                Foreground="White"
+                                BorderBrush="#444444"
+                                BorderThickness="1"
+                                Cursor="Hand">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" 
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="10">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                        <Button Grid.Column="2" 
+                                x:Name="SubmitReviewBtn"
+                                Content="Опубликовать" 
+                                Click="SubmitReview_Click" 
+                                FontWeight="Medium"
+                                Height="45"
+                                Background="#D32F2F" 
+                                Foreground="White"
+                                Cursor="Hand">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" 
+                                            CornerRadius="10">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Основной контент -->
+        <ScrollViewer x:Name="MainScrollViewer" 
+                      VerticalScrollBarVisibility="Auto" 
+                      HorizontalScrollBarVisibility="Disabled"
+                      Panel.ZIndex="0">
+            <StackPanel Margin="40">
+
+                <Grid Margin="0,0,0,40">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,0,40,0" Width="300">
+                        <Border Background="#1E1E1E" Height="450" CornerRadius="20">
+                            <Image Source="{Binding Cover}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <Button x:Name="FavoriteBtn" 
+                            Margin="0,25,0,0"
+                            Cursor="Hand"
                             Height="54"
                             FontSize="18"
                             FontWeight="Medium"
-                            Foreground="White"
-                            Cursor="Hand"
-                            Content="Добавить в избранное">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border x:Name="border" Background="#D32F2F" CornerRadius="20">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="border" Property="Background" Value="#B71C1C"/>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                </StackPanel>
+                            Content="Добавить в избранное"
+                            Background="#D32F2F" 
+                            Click="Add_Favorite">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="20">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button x:Name="WriteReviewBtn" 
+                            Margin="0,25,0,0"
+                            Height="54"
+                            FontSize="18"
+                            FontWeight="Medium"
+                            Content="Написать рецензию"
+                            Background="#FFC107"
+                            Click="OpenReviewForm_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="20">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
 
-                <StackPanel Grid.Column="1">
-                    <TextBlock Text="{Binding Title}" 
-           FontSize="48" FontWeight="Bold" Margin="0,-8,0,24" TextWrapping="Wrap"/>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="{Binding Title}" 
+               FontSize="48" FontWeight="Bold" Margin="0,-8,0,24" TextWrapping="Wrap"/>
 
-                    <TextBlock Text="{Binding Description}"
-           FontSize="18" Foreground="#CCCCCC" TextWrapping="Wrap" LineHeight="28" Margin="0,0,0,40"/>
+                        <TextBlock Text="{Binding Description}"
+               FontSize="18" Foreground="#CCCCCC" TextWrapping="Wrap" LineHeight="28" Margin="0,0,0,40"/>
 
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                            <TextBlock Text="Год производства: " FontSize="18" Foreground="#9E9E9E"/>
-                            <TextBlock Text="{Binding Year}" FontSize="18"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                            <TextBlock Text="Страна: " FontSize="18" Foreground="#9E9E9E"/>
-                            <TextBlock Text="{Binding Contry.Name}" FontSize="18"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                            <TextBlock Text="Оценка: " FontSize="18" Foreground="#9E9E9E"/>
-                            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                <TextBlock Text="★" Foreground="#FFC107" FontSize="20" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding Rating}" FontSize="20" FontWeight="Bold" Foreground="#FFC107" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <TextBlock Text="Год производства: " FontSize="18" Foreground="#9E9E9E"/>
+                                <TextBlock Text="{Binding Year}" FontSize="18"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <TextBlock Text="Страна: " FontSize="18" Foreground="#9E9E9E"/>
+                                <TextBlock Text="{Binding Contry.Name}" FontSize="18"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <TextBlock Text="Оценка: " FontSize="18" Foreground="#9E9E9E"/>
+                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                                    <TextBlock Text="★" Foreground="#FFC107" FontSize="20" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Rating}" FontSize="20" FontWeight="Bold" Foreground="#FFC107" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                </StackPanel>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
-                </StackPanel>
-            </Grid>
+                </Grid>
 
-            <TextBlock Text="Рецензии" FontSize="32" FontWeight="Bold" Margin="0,20,0,25"/>
+                <TextBlock Text="Рецензии" FontSize="32" FontWeight="Bold" Margin="0,20,0,25"/>
 
-            <ItemsControl x:Name="ReviewsList" ItemsSource="{Binding Reviews}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Background="#1E1E1E" CornerRadius="20" Padding="30" Margin="0,0,0,20">
-                            <StackPanel>
-                                <Grid Margin="0,0,0,20">
-                                    <TextBlock Text="{Binding User.Username}" FontSize="20" FontWeight="Medium" HorizontalAlignment="Left"/>
-                                    <TextBlock Text="{Binding Date, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="16" Foreground="#9E9E9E" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                                </Grid>
+                <ItemsControl x:Name="ReviewsList" ItemsSource="{Binding Reviews}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#1E1E1E" CornerRadius="20" Padding="30" Margin="0,0,0,20">
+                                <StackPanel>
+                                    <!-- Шапка с именем пользователя, рейтингом и датой -->
+                                    <Grid Margin="0,0,0,20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
 
-                                <Border Background="#2A2A2A" Height="1" Margin="0,0,0,20"/>
+                                        <!-- Имя пользователя -->
+                                        <TextBlock Grid.Column="0" 
+                                           Text="{Binding User.Username}" 
+                                           FontSize="20" 
+                                           FontWeight="Medium" 
+                                           Margin="0,0,15,0"/>
 
-                                <TextBlock Text="{Binding Title}" FontSize="20" FontWeight="Bold" Margin="0,0,0,12"/>
-                                <TextBlock Text="{Binding Text}" FontSize="16" Foreground="#CCCCCC" TextWrapping="Wrap" LineHeight="24"/>
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                                        <!-- Рейтинг в виде бейджа -->
+                                        <Border Grid.Column="1" 
+                                                Background="#2A2A2A" 
+                                                CornerRadius="12" 
+                                                Padding="8,4" 
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="★" 
+                                                   Foreground="#FFC107" 
+                                                   FontSize="16" 
+                                                   Margin="0,0,4,0"/>
+                                                <TextBlock Text="{Binding Rating}" 
+                                                   FontSize="14" 
+                                                   FontWeight="Bold" 
+                                                   Foreground="#FFC107"/>
+                                            </StackPanel>
+                                        </Border>
 
-            <Rectangle Height="50"/>
+                                        <!-- Дата -->
+                                        <TextBlock Grid.Column="2" 
+                                           Text="{Binding Date, StringFormat='{}{0:dd.MM.yyyy}'}" 
+                                           FontSize="16" 
+                                           Foreground="#9E9E9E" 
+                                           VerticalAlignment="Center"/>
+                                    </Grid>
 
-        </StackPanel>
-    </ScrollViewer>
+                                    <!-- Разделитель -->
+                                    <Border Background="#2A2A2A" Height="1" Margin="0,0,0,20"/>
+
+                                    <!-- Заголовок рецензии -->
+                                    <TextBlock Text="{Binding Title}" 
+                               FontSize="20" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,12"/>
+
+                                    <!-- Текст рецензии -->
+                                    <TextBlock Text="{Binding Text}" 
+                               FontSize="16" 
+                               Foreground="#CCCCCC" 
+                               TextWrapping="Wrap" 
+                               LineHeight="24"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <Rectangle Height="50"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </Page>

@@ -4,10 +4,14 @@
              xmlns:local="clr-namespace:MovieBase"
              StartupUri="LoginWindow.xaml">
     <Application.Resources>
+        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="styles/ScrollStyles.xaml"/>
+                <ResourceDictionary Source="styles/StarButton.xaml"/>
+                <ResourceDictionary Source="/styles/TextBoxStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
+
 </Application>
