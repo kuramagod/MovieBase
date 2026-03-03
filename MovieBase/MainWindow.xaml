@@ -104,7 +104,7 @@
                 <Button Width="30" Height="30" Margin="10" Style="{StaticResource NoHoverButtonStyle}" Cursor="Hand" Click="FavoritesButton_Click">
                     <Image Source="/images/Vector.png" />
                 </Button>
-                <Button Width="30" Height="30" Margin="10" Style="{StaticResource NoHoverButtonStyle}">
+                <Button Width="30" Height="30" Margin="10" Style="{StaticResource NoHoverButtonStyle}" Cursor="Hand" Click="ProfileButton_Click">
                     <Image Source="/images/profile.png" />
                 </Button>
             </StackPanel>

@@ -69,5 +69,16 @@ namespace MovieBase
 
             MainFrame.Navigate(new MovieFavoritesListPage());
         }
+
+        private void ProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AppSession.CurrentUser == null)
+            {
+                MessageBox.Show("Для просмотра профиля необходимо войти в аккаунт.");
+                return;
+            }
+
+            MainFrame.Navigate(new ProfilePage());
+        }
     }
 }
