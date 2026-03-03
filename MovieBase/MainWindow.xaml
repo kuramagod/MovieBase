@@ -6,7 +6,7 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:MovieBase"
         mc:Ignorable="d"
-        Title="Авторизация" Height="800" Width="1400"
+        Title="MovieBase" Height="800" Width="1400" MinHeight="800" MinWidth="1400"
         WindowStartupLocation="CenterScreen"
         Background="#121212">
     <Window.Resources>

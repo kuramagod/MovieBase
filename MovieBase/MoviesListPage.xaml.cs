@@ -39,5 +39,21 @@ namespace MovieBase
             MoviesList.ItemsSource = movies;
         }
 
+        public void FilterMovies(string query)
+        {
+            var context = MovieBaseContext.GetContext();
+
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                MoviesList.ItemsSource = context.Movies.ToList();
+            }
+            else
+            {
+                MoviesList.ItemsSource = context.Movies
+                    .Where(m => m.Title.ToLower().Contains(query.ToLower()))
+                    .ToList();
+            }
+        }
+
     }
 }

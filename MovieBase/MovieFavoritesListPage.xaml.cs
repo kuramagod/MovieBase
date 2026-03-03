@@ -25,33 +25,53 @@ namespace MovieBase
             LoadFavorites();
         }
 
+        public class FavoriteItemViewModel
+        {
+            public database.Favorite Favorite { get; set; }
+            public database.Movie Movie => Favorite.Movie;
+            public string UserRatingDisplay { get; set; }
+            public SolidColorBrush RatingColor { get; set; }
+        }
+
 
         private void LoadFavorites()
         {
-            if (AppSession.CurrentUser == null)
-            {
-                MessageBox.Show("Ошибка: Пользователь не авторизован.");
-                return;
-            }
+            if (AppSession.CurrentUser == null) return;
 
             var context = MovieBaseContext.GetContext();
 
-            var userFavorites = context.Favorites
+            // 1. Получаем список избранного
+            var favorites = context.Favorites
                 .Include(f => f.Movie)
                 .Where(f => f.Userid == AppSession.CurrentUser.Userid)
                 .OrderByDescending(f => f.Date)
                 .ToList();
 
-            FavoritesListControl.ItemsSource = userFavorites;
+            // 2. Получаем все рецензии текущего пользователя
+            var userReviews = context.Reviews
+                .Where(r => r.Userid == AppSession.CurrentUser.Userid)
+                .ToList();
 
-            if (userFavorites.Count == 0)
-            {
-                EmptyListMessage.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                EmptyListMessage.Visibility = Visibility.Collapsed;
-            }
+            // 3. Формируем список для отображения (соединяем данные)
+            var displayList = favorites.Select(f => {
+                // Ищем рецензию пользователя для этого конкретного фильма
+                var review = userReviews.FirstOrDefault(r => r.Movieid == f.Movieid);
+
+                bool hasRating = review != null && review.Rating > 0;
+
+                return new FavoriteItemViewModel
+                {
+                    Favorite = f,
+                    UserRatingDisplay = hasRating ? review.Rating.ToString() : "?",
+                    RatingColor = hasRating ? new SolidColorBrush(Color.FromRgb(255, 193, 7))
+                                            : new SolidColorBrush(Color.FromRgb(158, 158, 158))
+                };
+            }).ToList();
+
+            FavoritesListControl.ItemsSource = displayList;
+
+            // Управление сообщением о пустом списке
+            EmptyListMessage.Visibility = displayList.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
     }

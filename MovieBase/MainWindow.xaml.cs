@@ -45,7 +45,10 @@ namespace MovieBase
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            if (MainFrame.Content is MoviesListPage moviesPage)
+            {
+                moviesPage.FilterMovies(SearchTextBox.Text);
+            }
         }
 
         private void Logo_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

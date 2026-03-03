@@ -42,7 +42,7 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                        <TextBlock Text="⭐" Foreground="#FFD700" FontSize="16" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <TextBlock Text="★" Foreground="#FFD700" FontSize="16" VerticalAlignment="Center" Margin="0,0,4,0"/>
                         <TextBlock Text="{Binding Rating}" Foreground="#FFD700" FontSize="18" FontWeight="Medium" VerticalAlignment="Center"/>
                     </StackPanel>
 

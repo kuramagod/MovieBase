@@ -6,36 +6,39 @@
              xmlns:local="clr-namespace:MovieBase"
              mc:Ignorable="d" 
              Height="300" Width="200">
-    <Border Background="#1E1E1E" CornerRadius="5" ClipToBounds="True">
+    <Border Background="#1E1E1E" CornerRadius="12" ClipToBounds="True">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Image Grid.Row="0" 
-                   Source="{Binding Movie.Cover}" 
-                   Stretch="UniformToFill"
-                   VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Image Grid.Row="0" Source="{Binding Movie.Cover}" Stretch="UniformToFill"/>
 
-            </Image>
+            <Border HorizontalAlignment="Right" 
+                    VerticalAlignment="Top" 
+                    Margin="10" 
+                    Padding="6,3" 
+                    Background="#CC121212" 
+                    CornerRadius="6">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="★" 
+                               Foreground="{Binding RatingColor}" 
+                               FontSize="14" 
+                               Margin="0,0,3,0"/>
+                    <TextBlock Text="{Binding UserRatingDisplay}" 
+                               Foreground="{Binding RatingColor}" 
+                               FontSize="14" 
+                               FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
 
-            <Border Grid.Row="1" Background="#2A2A2A" Padding="10">
+            <Border Grid.Row="1" Background="#2A2A2A" Padding="12">
                 <StackPanel>
-                    <TextBlock Text="{Binding Movie.Title}" 
-                               Foreground="White" 
-                               FontSize="16" 
-                               FontWeight="SemiBold" 
-                               TextWrapping="Wrap"
-                               Margin="0,0,0,5"/>
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Добавлено: " 
-                                   Foreground="#BDBDBD" 
-                                   FontSize="12"/>
-                        <TextBlock Text="{Binding Date, StringFormat='{}{0:dd.MM.yyyy}'}" 
-                                   Foreground="#BDBDBD" 
-                                   FontSize="12"/>
+                    <TextBlock Text="{Binding Movie.Title}" Foreground="White" FontSize="16" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <TextBlock Text="Добавлено: " Foreground="#9E9E9E" FontSize="12"/>
+                        <TextBlock Text="{Binding Favorite.Date, StringFormat='{}{0:dd.MM.yyyy}'}" Foreground="#9E9E9E" FontSize="12"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
