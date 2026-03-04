@@ -22,6 +22,15 @@ namespace MovieBase
         {
             InitializeComponent();
             LoadUserData();
+
+            if (AppSession.CurrentUser?.Roleid == 2)
+            {
+                AdminPanelBtn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                AdminPanelBtn.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void LoadUserData()
@@ -68,6 +77,11 @@ namespace MovieBase
 
                 Window.GetWindow(this).Close();
             }
+        }
+
+        private void AdminPanelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AdminPage());
         }
     }
 }

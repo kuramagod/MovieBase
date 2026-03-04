@@ -48,22 +48,49 @@
                 </Border>
             </UniformGrid>
 
-            <Button Content="Выйти из системы" 
-                    Background="#D32F2F" 
-                    Foreground="White" 
-                    Height="65" 
-                    Width="300"
-                    FontSize="20"
-                    FontWeight="Bold"
-                    BorderThickness="0"
-                    Cursor="Hand"
-                    Click="Logout_Click">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="15"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
+            <!-- Горизонтальное расположение кнопок -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15">
+                <Button Content="Админ панель" 
+                        x:Name="AdminPanelBtn"
+                        Background="#D32F2F" 
+                        Style="{StaticResource ButtonStyle}"
+                        Foreground="White" 
+                        Height="65" 
+                        Width="300"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Click="AdminPanelBtn_Click"
+                        Margin="0,0,15,0">
+                    <!-- Отступ справа -->
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button Content="Выйти из системы" 
+                        Background="#D32F2F" 
+                        Style="{StaticResource ButtonStyle}"
+                        Foreground="White" 
+                        Height="65" 
+                        Width="300"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Click="Logout_Click"
+                        Margin="15,0,0,0">
+                    <!-- Отступ слева -->
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

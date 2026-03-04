@@ -189,30 +189,19 @@
                             FontWeight="Medium"
                             Content="Добавить в избранное"
                             Background="#D32F2F" 
-                            Click="Add_Favorite">
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="20">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
+                            Click="Add_Favorite"
+                            Style="{StaticResource ButtonStyle}">
                         </Button>
                         <Button x:Name="WriteReviewBtn" 
                             Margin="0,25,0,0"
                             Height="54"
+                            Style="{StaticResource ReviewButtonStyle}"
                             FontSize="18"
                             FontWeight="Medium"
                             Content="Написать рецензию"
                             Background="#FFC107"
+                            Cursor="Hand"
                             Click="OpenReviewForm_Click">
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}" CornerRadius="20">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
                         </Button>
                     </StackPanel>
 
