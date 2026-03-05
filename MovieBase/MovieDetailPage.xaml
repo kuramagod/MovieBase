@@ -214,6 +214,10 @@
 
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <TextBlock Text="Жанр: " FontSize="18" Foreground="#9E9E9E"/>
+                                <TextBlock Text="{Binding Genre.Name}" FontSize="18"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                                 <TextBlock Text="Год производства: " FontSize="18" Foreground="#9E9E9E"/>
                                 <TextBlock Text="{Binding Year}" FontSize="18"/>
                             </StackPanel>

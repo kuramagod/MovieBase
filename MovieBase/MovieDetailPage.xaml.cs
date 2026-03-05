@@ -35,6 +35,7 @@ namespace MovieBase
 
             var movieWithData = context.Movies
                 .Include(m => m.Contry)
+                .Include(m => m.Genre)
                 .Include(m => m.Reviews)
                     .ThenInclude(r => r.User)
                 .FirstOrDefault(m => m.Movieid == selectedMovie.Movieid);
