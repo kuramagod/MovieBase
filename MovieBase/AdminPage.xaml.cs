@@ -25,11 +25,28 @@ namespace MovieBase
         {
             InitializeComponent();
             RefreshData();
+            UpdateAddButtonVisibility();
         }
         private string GetCurrentTableTag()
         {
             return (AdminTabs.SelectedItem as TabItem)?.Tag.ToString();
         }
+
+        private void UpdateAddButtonVisibility()
+        {
+            string currentTable = GetCurrentTableTag();
+
+            // Скрываем кнопку для вкладок "Рецензии" и "Избранное"
+            if (currentTable == "Reviews" || currentTable == "Favorites")
+            {
+                AddButton.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                AddButton.Visibility = Visibility.Visible;
+            }
+        }
+
         private void RefreshData()
         {
             var context = MovieBaseContext.GetContext();
@@ -62,7 +79,11 @@ namespace MovieBase
         }
         private void AdminTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.Source is TabControl) RefreshData();
+            if (e.Source is TabControl)
+            {
+                RefreshData();
+                UpdateAddButtonVisibility();
+            }
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {

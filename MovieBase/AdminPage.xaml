@@ -185,7 +185,7 @@
                     </Grid>
                 </Border>
 
-                <Button Content="+ Добавить запись" Click="Add_Click" 
+                <Button x:Name="AddButton" Content="+ Добавить запись" Click="Add_Click" 
                         Style="{StaticResource ButtonStyle}" Width="180" Margin="20,0"/>
             </StackPanel>
 
