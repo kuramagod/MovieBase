@@ -12,7 +12,7 @@ using System.Windows.Media;
 
 namespace MovieBase
 {
-    public partial class AdminEditWindow : Window
+    public partial class AdminEditWindow : BaseWindow
     {
         private object _item;
         private bool _isNew;

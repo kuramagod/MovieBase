@@ -24,7 +24,8 @@ namespace MovieBase
         private database.Movie _currentMovie;
         private Review _existingUserReview;
         private int _selectedRating = 0;
-        
+        public database.Movie CurrentMovie => _currentMovie;
+
         public MovieDetailPage(database.Movie selectedMovie)
         {
             InitializeComponent();

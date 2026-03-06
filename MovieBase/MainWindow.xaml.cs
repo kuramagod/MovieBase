@@ -15,7 +15,7 @@ namespace MovieBase
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : BaseWindow
     {
         public MainWindow()
         {
@@ -33,6 +33,30 @@ namespace MovieBase
             else
             {
                 SearchContainer.Visibility = Visibility.Collapsed;
+            }
+
+            Title = "MovieBase";
+
+            if (e.Content is Page page)
+            {
+                switch (page)
+                {
+                    case MoviesListPage:
+                        Title = "Список фильмов";
+                        break;
+                    case MovieDetailPage detailPage:
+                        Title = $"{detailPage.CurrentMovie.Title ?? "фильма"}";
+                        break;
+                    case MovieFavoritesListPage:
+                        Title = "Избранное";
+                        break;
+                    case ProfilePage:
+                        Title = "Профиль";
+                        break;
+                    case AdminPage:
+                        Title = "Админ панель";
+                        break;
+                }
             }
         }
 
