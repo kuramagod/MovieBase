@@ -7,9 +7,13 @@
         
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="styles/ScrollStyles.xaml"/>
-                <ResourceDictionary Source="styles/StarButton.xaml"/>
+                <ResourceDictionary Source="/styles/ScrollStyles.xaml"/>
+                <ResourceDictionary Source="/styles/StarButton.xaml"/>
                 <ResourceDictionary Source="/styles/TextBoxStyles.xaml"/>
+                <ResourceDictionary Source="/styles/LoginRegisterStyles.xaml"/>
+                <ResourceDictionary Source="/styles/MainSectionStyles.xaml"/>
+                <ResourceDictionary Source="/styles/AdminPanelStyles.xaml"/>
+                <ResourceDictionary Source="/styles/TitleBar.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

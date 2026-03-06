@@ -6,13 +6,20 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>images\moviebase.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\favorite.png" />
     <None Remove="images\logo.png" />
+    <None Remove="images\moviebase.ico" />
     <None Remove="images\no_image.jpg" />
     <None Remove="images\profile.png" />
     <None Remove="images\Vector.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="images\moviebase.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,10 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="images\favorite.png" />
     <Resource Include="images\logo.png" />
+    <Resource Include="images\moviebase.ico" />
     <Resource Include="images\no_image.jpg" />
     <Resource Include="images\profile.png" />
-    <Resource Include="images\Vector.png" />
   </ItemGroup>
 
 </Project>

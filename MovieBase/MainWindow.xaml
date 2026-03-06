@@ -9,69 +9,6 @@
         Title="MovieBase" Height="800" Width="1400" MinHeight="800" MinWidth="1400"
         WindowStartupLocation="CenterScreen"
         Background="#121212">
-    <Window.Resources>
-        <Style x:Key="PlaceholderTextBoxStyle" TargetType="TextBox">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="15,0"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="CaretBrush" Value="#D32F2F"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TextBox">
-                        <Grid>
-                            <ScrollViewer x:Name="PART_ContentHost"
-                                  VerticalAlignment="Center"
-                                  Margin="15,0"
-                                  Background="Transparent"
-                                  Panel.ZIndex="1"/>
-
-                            <TextBlock x:Name="Placeholder"
-                               Text="Название фильма"
-                               Foreground="Gray"
-                               FontSize="20"
-                               VerticalAlignment="Center"
-                               Margin="15,0"
-                               IsHitTestVisible="False"
-                               Panel.ZIndex="0"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-
-                            <!-- Скрываем плейсхолдер при фокусе -->
-                            <Trigger Property="IsKeyboardFocused" Value="True">
-                                <Setter TargetName="Placeholder" Property="Visibility" Value="Collapsed"/>
-                            </Trigger>
-
-                            <!-- Показываем плейсхолдер, если нет текста и не наведены и не в фокусе -->
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="Text" Value=""/>
-                                    <Condition Property="IsMouseOver" Value="False"/>
-                                    <Condition Property="IsKeyboardFocused" Value="False"/>
-                                </MultiTrigger.Conditions>
-                                <MultiTrigger.Setters>
-                                    <Setter TargetName="Placeholder" Property="Visibility" Value="Visible"/>
-                                </MultiTrigger.Setters>
-                            </MultiTrigger>
-
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="Text" Value="{x:Static system:String.Empty}"/>
-                                    <Condition Property="IsMouseOver" Value="False"/>
-                                    <Condition Property="IsKeyboardFocused" Value="False"/>
-                                </MultiTrigger.Conditions>
-                                <MultiTrigger.Setters>
-                                    <Setter TargetName="Placeholder" Property="Visibility" Value="Visible"/>
-                                </MultiTrigger.Setters>
-                            </MultiTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -102,7 +39,7 @@
                 </Border>
 
                 <Button Width="30" Height="30" Margin="10" Style="{StaticResource NoHoverButtonStyle}" Cursor="Hand" Click="FavoritesButton_Click">
-                    <Image Source="/images/Vector.png" />
+                    <Image Source="/images/favorite.png" />
                 </Button>
                 <Button Width="30" Height="30" Margin="10" Style="{StaticResource NoHoverButtonStyle}" Cursor="Hand" Click="ProfileButton_Click">
                     <Image Source="/images/profile.png" />
