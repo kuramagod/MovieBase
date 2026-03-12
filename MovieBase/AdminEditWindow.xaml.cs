@@ -60,6 +60,122 @@ namespace MovieBase
             }
         }
 
+        private bool ValidateFields()
+        {
+            // Словарь для хранения ошибок валидации
+            var errors = new List<string>();
+
+            foreach (var entry in _controls)
+            {
+                var prop = entry.Key;
+                var control = entry.Value;
+
+                // Пропускаем ID поля и Cover (обрабатывается отдельно)
+                if (prop.Name.ToLower().EndsWith("id") && prop.Name != "Cover")
+                    continue;
+
+                // Проверяем TextBox
+                if (control is TextBox textBox && textBox.IsEnabled)
+                {
+                    // Проверяем обязательные поля
+                    if (string.IsNullOrWhiteSpace(textBox.Text))
+                    {
+                        // Исключения для определенных полей
+                        if (prop.Name == "Cover" && _selectedImageData == null && _isNew)
+                        {
+                            errors.Add($"• {GetDisplayName(prop.Name)} - необходимо выбрать файл изображения");
+                        }
+                        else if (prop.Name != "Cover") // Cover может быть пустым если не выбрали новый файл
+                        {
+                            errors.Add($"• {GetDisplayName(prop.Name)} - не может быть пустым");
+                        }
+                    }
+
+                    // Специальные проверки для разных типов полей
+                    if (!string.IsNullOrWhiteSpace(textBox.Text))
+                    {
+                        // Проверка года
+                        if (prop.Name == "Year")
+                        {
+                            if (!int.TryParse(textBox.Text, out int year) || year < 1888 || year > DateTime.Now.Year + 5)
+                            {
+                                errors.Add($"• {GetDisplayName(prop.Name)} - введите корректный год (от 1888 до {DateTime.Now.Year + 5})");
+                            }
+                        }
+
+                        // Проверка рейтинга
+                        if (prop.Name == "Rating")
+                        {
+                            if (!double.TryParse(textBox.Text, out double rating) || rating < 0 || rating > 10)
+                            {
+                                errors.Add($"• {GetDisplayName(prop.Name)} - введите число от 0 до 10");
+                            }
+                        }
+
+                        // Проверка email
+                        if (prop.Name == "Email" && !string.IsNullOrWhiteSpace(textBox.Text))
+                        {
+                            if (!textBox.Text.Contains("@") || !textBox.Text.Contains("."))
+                            {
+                                errors.Add($"• {GetDisplayName(prop.Name)} - введите корректный email адрес");
+                            }
+                        }
+                    }
+                }
+
+                // Проверяем ComboBox
+                if (control is ComboBox comboBox && comboBox.IsEnabled)
+                {
+                    if (comboBox.SelectedValue == null)
+                    {
+                        string fieldName = "";
+                        if (_item is Movie)
+                        {
+                            fieldName = prop.Name == "Contryid" ? "Страна" : "Жанр";
+                        }
+                        else if (_item is User && prop.Name == "Roleid")
+                        {
+                            fieldName = "Роль";
+                        }
+
+                        if (string.IsNullOrEmpty(fieldName))
+                            fieldName = GetDisplayName(prop.Name);
+
+                        errors.Add($"• {fieldName} - необходимо выбрать значение");
+                    }
+                }
+            }
+
+            // Проверка пароля (минимальная длина)
+            if (_item is User)
+            {
+                var passwordProp = _controls.FirstOrDefault(x => x.Key.Name == "Password").Value as TextBox;
+                if (passwordProp != null && !string.IsNullOrWhiteSpace(passwordProp.Text))
+                {
+                    if (passwordProp.Text.Length < 6)
+                    {
+                        errors.Add($"• Пароль - должен содержать минимум 6 символов");
+                    }
+                }
+            }
+
+            // Если есть ошибки - показываем их
+            if (errors.Count > 0)
+            {
+                string errorMessage = "Пожалуйста, исправьте следующие ошибки:\n\n" +
+                                     string.Join("\n", errors) +
+                                     "\n\nВсе поля должны быть заполнены корректно!";
+
+                MessageBox.Show(errorMessage,
+                               "Проверка данных",
+                               MessageBoxButton.OK,
+                               MessageBoxImage.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
         private void GenerateMovieFields(PropertyInfo[] properties)
         {
             var context = MovieBaseContext.GetContext();
@@ -422,6 +538,12 @@ namespace MovieBase
         {
             try
             {
+                // Добавляем проверку валидации перед сохранением
+                if (!ValidateFields())
+                {
+                    return; // Останавливаем сохранение, если есть ошибки
+                }
+
                 var context = MovieBaseContext.GetContext();
 
                 // Записываем данные из контролов обратно в объект
@@ -509,10 +631,10 @@ namespace MovieBase
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при сохранении: " + ex.Message,
-                              "Ошибка",
-                              MessageBoxButton.OK,
-                              MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка при сохранении: {ex.Message}\n\nПожалуйста, проверьте правильность введенных данных.",
+                               "Ошибка",
+                               MessageBoxButton.OK,
+                               MessageBoxImage.Error);
             }
         }
 

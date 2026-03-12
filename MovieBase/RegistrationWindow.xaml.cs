@@ -39,14 +39,17 @@ namespace MovieBase
             {
                 MessageBox.Show("Пользователь или почтой с таким именем уже существует");
                 return;
+            } else if (loginTxt.Text == "" || passwordTxt.Password == "" || emailTxt.Text == "") {
+                MessageBox.Show("Для регистрации все поля должны быть заполнены");
+                return;
             }
-            User newUser = new User
-            {
-                Username = loginTxt.Text,
-                Password = passwordTxt.Password,
-                Email = emailTxt.Text,
-                Roleid = 1
-            };
+                User newUser = new User
+                {
+                    Username = loginTxt.Text,
+                    Password = passwordTxt.Password,
+                    Email = emailTxt.Text,
+                    Roleid = 1
+                };
             context.Users.Add(newUser);
             context.SaveChanges();
             MessageBox.Show("Регистрация прошла успешно");
