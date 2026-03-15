@@ -37,7 +37,7 @@ namespace MovieBase
             var existingEmail = context.Users.FirstOrDefault(u => u.Email == emailTxt.Text);
             if (existingUser != null || existingEmail != null)
             {
-                MessageBox.Show("Пользователь или почтой с таким именем уже существует");
+                MessageBox.Show("Пользователь с таким именем или почтой уже существует");
                 return;
             } else if (loginTxt.Text == "" || passwordTxt.Password == "" || emailTxt.Text == "") {
                 MessageBox.Show("Для регистрации все поля должны быть заполнены");

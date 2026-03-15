@@ -90,6 +90,23 @@
                         </Style>
                     </Button.Resources>
                 </Button>
+
+                <Button Width="65" Height="65" 
+                        Background="#455A64" 
+                        Style="{StaticResource ButtonStyle}"
+                        Foreground="White" 
+                        FontSize="24"
+                        Cursor="Hand"
+                        Click="ExportFavorites_Click"
+                        ToolTip="Экспорт избранного в Word"
+                        Margin="15,0,15,0">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                    <TextBlock Text="📄" Margin="0,0,0,2"/>
+                </Button>
             </StackPanel>
         </StackPanel>
     </Grid>
