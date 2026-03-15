@@ -106,7 +106,10 @@ namespace MovieBase
                         // Проверка рейтинга
                         if (prop.Name == "Rating")
                         {
-                            if (!double.TryParse(textBox.Text, out double rating) || rating < 0 || rating > 10)
+                            // Заменяем точку на запятую для корректного парсинга в зависимости от культуры
+                            string normalizedText = textBox.Text.Replace('.', ',');
+
+                            if (!double.TryParse(normalizedText, out double rating) || rating < 0 || rating > 10)
                             {
                                 errors.Add($"• {GetDisplayName(prop.Name)} - введите число от 0 до 10");
                             }
